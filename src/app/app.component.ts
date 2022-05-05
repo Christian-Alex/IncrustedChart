@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartConfiguration, ChartDataset, ChartEvent, ChartOptions, ChartType } from 'chart.js';
-import { BaseChartDirective, baseColors } from 'ng2-charts';
+import { ChartConfiguration, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
   
 @Component({
   selector: 'my-app',
@@ -9,45 +9,8 @@ import { BaseChartDirective, baseColors } from 'ng2-charts';
 })
 export class AppComponent {
 
-  public lineChartData: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        data: [ 65, 59, 80, 81, 56, 55, 40 ],
-        label: 'Series A',
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
-      },
-      {
-        data: [ 28, 48, 40, 19, 86, 27, 90 ],
-        label: 'Series B',
-        backgroundColor: 'rgba(77,83,96,0.2)',
-        borderColor: 'rgba(77,83,96,1)',
-        pointBackgroundColor: 'rgba(77,83,96,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(77,83,96,1)',
-        fill: 'origin',
-      },
-      {
-        data: [ 180, 480, 770, 90, 1000, 270, 400 ],
-        label: 'Series C',
-        yAxisID: 'y-axis-1',
-        backgroundColor: 'rgba(255,0,0,0.3)',
-        borderColor: 'red',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
-      }
-    ],
-    labels: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July' ]
-  };
+  sell:number[] = [100, 80, 90, 100, 90, 110, 80];
+  date:string[] = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July' ];
 
   public lineChartOptions: ChartConfiguration['options'] = {
     elements: {
@@ -74,40 +37,79 @@ export class AppComponent {
     }
   };
 
+  public lineChartData: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        data: this.sell,
+        label: 'Series A',
+        backgroundColor: 'rgba(255,0,0,0.3)',
+        borderColor: 'red',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+        fill: 'origin',
+      }
+      /* 
+      ,{
+        data: [ 50, 60, 40, 70, 90, 20, 50 ],
+        label: 'Series B',
+        backgroundColor: 'rgba(255,0,0,0.3)',
+        borderColor: 'red',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+        fill: 'origin',
+      }
+      */
+    ],
+    labels: this.date
+  };
+
   public lineChartType: ChartType = 'line';
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  private static generateNumber(i: number): number {
-    return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
-  }
-
-  // events
-  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
-
+  /*
   public hideOne(): void {
     const isHidden = this.chart?.isDatasetHidden(1);
     this.chart?.hideDataset(1, !isHidden);
   }
+  */
+  public chargeData(){
+    let ventas = [
+      {'id':1,'venta':10},
+      {'id':2,'venta':20},
+      {'id':3,'venta':20},
+      {'id':4,'venta':50},
+      {'id':5,'venta':70}
+    ]
+    Object.keys(ventas).forEach(element => {
+      this.sell.push
+    });
+  }
 
+  public hideTwo():void {
+    const isHidden = this.chart?.isDatasetHidden(0);
+    this.chart?.hideDataset(0, !isHidden);
+  }
+
+  public changeColor():void{
+    let colors = ['green','red','blue','yellow','orange']
+    let newColor = Math.round(Math.random() * (colors.length - 0));
+    let newBack = Math.round(Math.random() * (255 - 50));
+
+    this.lineChartData.datasets[0].borderColor = colors[newColor];
+    this.lineChartData.datasets[0].backgroundColor = 'rgba(' + newBack + ',' + newBack + ', 0, 0.3)';
+    this.chart?.update();
+  }
+
+  /*
   public changeColor(): void {
-    this.lineChartData.datasets[2].borderColor = 'green';
-    this.lineChartData.datasets[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
-
+    this.lineChartData.datasets[1].borderColor = 'green';
+    this.lineChartData.datasets[1].backgroundColor = `rgba(0, 255, 0, 0.3)`;
     this.chart?.update();
   }
-
-  public changeLabel(): void {
-    if (this.lineChartData.labels) {
-      this.lineChartData.labels[2] = [ '1st Line', '2nd Line' ];
-    }
-
-    this.chart?.update();
-  }
+  */
 }

@@ -5,9 +5,7 @@
       <canvas baseChart width="400" height="400"
                   [data]="lineChartData"
                   [options]="lineChartOptions"
-                  [type]="lineChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
+                  [type]="lineChartType"></canvas>
       </div>
     </div>
     <div class="flex-item">
@@ -20,9 +18,14 @@
         </tr>
       </table>
       <div class="button-row">
+        <!--
+          <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
+          <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Series B</button>
+        -->
+        <button mat-button mat-raised-button color="primary" (click)="hideTwo()">Recolor</button>
         <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
-        <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Series B</button>
-        <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button>
+        <button mat-button mat-raised-button color="primary" (click)="chargeData()">ChargeData</button>
+
       </div>
     </div>
   </div>
